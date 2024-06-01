@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+
+  before_action :authenticate_user!, except: [:top, :about]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
 
   def after_sign_in_path_for(resource)
-    root_path
+    # ユーザの詳細ページをリンク先に指定(root_pathを変更)
+    user_path(resource)
+    # root_path
   end
 
   def after_sign_out_path_for(resource)

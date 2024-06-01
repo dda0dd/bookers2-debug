@@ -2,7 +2,17 @@
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
   		<h1>Editing Book</h1>
-  		<%= render 'form', book: @book %>
+<!--本の更新失敗時にエラー文表示記述-->
+  		<% if @book.errors.any? %>
+  		  <%= @book.errors.count %>
+  		    <ul>
+  		      <% @book.errors.full_messages.each do |message| %>errors prohibited this obj from being saved:
+  		        <li><%= message %></li>
+  		      <% end %>
+  		    </ul>
+  		<% end %>
+  		<!--books/追記-->
+  		<%= render 'books/form', book: @book %>
   		<%= link_to 'Show', @book %> |
   		<%= link_to 'Back', books_path, class: "back" %>
   </div>

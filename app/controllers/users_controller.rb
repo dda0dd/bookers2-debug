@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :ensure_correct_user, only: [:update]
+# 他ユーザのプロフィールを編集できないよう(, :edit)追記
+  before_action :ensure_correct_user, only: [:update, :edit]
 
   def show
     @user = User.find(params[:id])
@@ -14,6 +15,12 @@ class UsersController < ApplicationController
   end
 
   def edit
+  # URLの表示がusers.1になっているのでusers/1に変更記述
+    @user = User.find(params[:id])
+  # プロフィール編集が失敗した後自分の詳細ページ表示記述
+    unless @user.id == current_user.id
+      redirect_to user_path(current_user.id)
+    end
   end
 
   def update

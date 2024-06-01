@@ -2,10 +2,14 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+# 空のモデルを渡す（@bookにすると全てBook.newになるので記述を変える）
+    @book_new = Book.new
   end
 
   def index
     @books = Book.all
+# books/indexの@bookを定義（本の投稿なので.new）
+    @book = Book.new
   end
 
   def create
@@ -21,6 +25,10 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
+# 本の投稿ユーザと今ログインしたユーザを比較処理（ログイン中にURLに入力で他人が投稿本編集ページに遷移できない）
+    unless @book.user.id == current_user.id
+      redirect_to books_path
+    end
   end
 
   def update
@@ -32,15 +40,17 @@ class BooksController < ApplicationController
     end
   end
 
-  def delete
+# deleteをdestroyに変更
+  def destroy
     @book = Book.find(params[:id])
     @book.destoy
     redirect_to books_path
   end
 
   private
-
+# どれを確認するか
   def book_params
-    params.require(:book).permit(:title)
+# 何が許可されているか（今許可されているのは:title, :bodyになる）
+    params.require(:book).permit(:title, :body)
   end
 end
