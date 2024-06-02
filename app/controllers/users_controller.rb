@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @books = @user.books
+# .newは新規投稿Title下のboxを表示する時などに使用記述
     @book = Book.new
   end
 
@@ -25,9 +26,13 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to users_path(@user), notice: "You have updated user successfully."
+  # usersのsを外す（users/showへのリンクなので）
+      redirect_to user_path(@user.id), notice: "You have updated user successfully."
     else
-      render "show"
+  # users/_indexのeachメソッドbooksを定義
+      @books = Book.all
+  # エラー後はusers/editに遷移する記述
+      render :edit
     end
   end
 

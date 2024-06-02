@@ -4,6 +4,9 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
 # 空のモデルを渡す（@bookにすると全てBook.newになるので記述を変える）
     @book_new = Book.new
+# users/_infoのimage_tag userが空（books/showの@userを定義）
+  # 本を投稿したユーザに変更
+    @user = @book.user
   end
 
   def index
@@ -14,6 +17,7 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
+# 1:N(アソシエーション)でN側をcreateする時のみ使用記述
     @book.user_id = current_user.id
     if @book.save
       redirect_to book_path(@book), notice: "You have created book successfully."
@@ -43,7 +47,8 @@ class BooksController < ApplicationController
 # deleteをdestroyに変更
   def destroy
     @book = Book.find(params[:id])
-    @book.destoy
+# rが抜けていてエラー発生
+    @book.destroy
     redirect_to books_path
   end
 
