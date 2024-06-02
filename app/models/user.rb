@@ -6,7 +6,9 @@ class User < ApplicationRecord
 
 # belongs_to :booksを変更（1対Nの関係）
   has_many :books, dependent: :destroy
-  # belongs_to :books
+
+  has_many :favorites, dependent: :destroy
+# belongs_to :books
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
