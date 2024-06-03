@@ -3,12 +3,21 @@ Rails.application.routes.draw do
 # 記載順を変更
   devise_for :users
 
-  resources :books, only: [:index,:show,:edit,:create,:destroy,:update]
+# コメントは投稿本に対してコメントされる（book_commentsはbooksと結びつき親子関係に）do~end
+  resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
+# いいね機能（1ユーザは一つの投稿に一回しかいいねできない仕様）
+    resource :favorite, only: [:create, :destroy]
+    resources :book_comments, only: [:create, :destroy]
+  end
+
+# resource(単数形)=/:idがURLに含まれない
+  resource :favorite, only: [:create, :destroy]
 
   resources :users, only: [:index,:show,:edit,:update]
 # root :to =>をroot to:に変更
   root to: 'homes#top'
-  get "home/about"=>"homes#about"
+# , as: 'about'追記
+  get 'home/about' =>'homes#about', as: 'about'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

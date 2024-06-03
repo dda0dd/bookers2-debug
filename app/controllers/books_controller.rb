@@ -2,6 +2,9 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+# コメント投稿するインスタンス変数を定義
+    @book_comment = BookComment.new
+
 # 空のモデルを渡す（@bookにすると全てBook.newになるので記述を変える）
     @book_new = Book.new
 # users/_infoのimage_tag userが空（books/showの@userを定義）

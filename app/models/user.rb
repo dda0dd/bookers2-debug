@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
 
   has_many :favorites, dependent: :destroy
+# Userデータ削除時にそのUserが投稿したコメントデータも一緒に削除（1:Nの関係）
+  has_many :book_comments, dependent: :destroy
 # belongs_to :books
   has_one_attached :profile_image
 
@@ -15,6 +17,7 @@ class User < ApplicationRecord
 # 自己紹介文のバリデーションを追記
   validates :introduction, length: {maximum: 50}
 
+# 今回は引数をつけない
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
