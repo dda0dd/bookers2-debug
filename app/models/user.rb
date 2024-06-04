@@ -41,6 +41,28 @@ class User < ApplicationRecord
 # 自己紹介文のバリデーションを追記
   validates :introduction, length: {maximum: 50}
 
+# 検索方法の分岐定義(検索方法毎に適した検索が行われる)
+  def self.looks(search, word)
+# perfect_match=完全一致（検索方法）送られてきたsearchで条件分岐
+    if search == "perfect_match"
+# name=検索対象usersテーブル内カラム名
+      @user = User.where("name LIKE?", "#{word}")
+# forward_match=前方一致（検索方法）送られてきたsearchで条件分岐
+    elsif search == "forward_match"
+# 完全一致以外の検索方法は #{word}前後か両方に % 追記で定義
+      @user = User.where("name LIKE?", "#{word}%")
+# backward_match=後方一致（検索方法）送られてきたsearchで条件分岐
+    elsif search == "backward_match"
+# whereメソッドでデータベースから該当データ取得、変数(@user)に代入
+      @user = User.where("name LIKE?", "%#{word}")
+# partial_match=部分一致（検索方法）送られてきたsearchで条件分岐
+    elsif search == "partial_match"
+      @user = User.where("name LIKE?", "%#{word}%")
+    else
+      @user = User.all
+    end
+  end
+
 # 今回は引数をつけない
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'

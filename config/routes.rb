@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
+
+# 検索ボタンクリックでSearchesコントローラのsearchアクションが実行される定義
+  get "search" => "searches#search"
+
 # root :to =>をroot to:に変更
   root to: 'homes#top'
 # , as: 'about'追記

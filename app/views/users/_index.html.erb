@@ -17,6 +17,7 @@
         <td>フォロー数:<%= user.followings.count %></td>
         <td>フォロワー数:<%= user.followers.count %></td>
         <td>
+  <!--フォローするユーザとログインユーザが一致しない時true,一致する時false-->
           <% if user != current_user %>
           <% if current_user.following?(user) %>
   <!--マイページ以外のサイドバーにフォロー外すボタン表示記述-->
