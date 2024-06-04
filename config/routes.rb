@@ -12,8 +12,12 @@ Rails.application.routes.draw do
 
 # resource(単数形)=/:idがURLに含まれない
   resource :favorite, only: [:create, :destroy]
-
-  resources :users, only: [:index,:show,:edit,:update]
+# フォロー・フォロワー機能記述（ネストさせる）
+  resources :users, only: [:index,:show,:edit,:update] do
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
+  end
 # root :to =>をroot to:に変更
   root to: 'homes#top'
 # , as: 'about'追記

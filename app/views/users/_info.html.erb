@@ -13,27 +13,30 @@
   <tr>
     <th>follows</th>
 <!--フォロー一覧画面へのリンク-->
-    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-    <th><%= users_followeds.count %></th>
-    <% end %>
+    <th><%= link_to user.followings.count, user_followings_path(user.id) %></th>
   </tr>
 <!--サイドバーにフォロワー数表示記述-->
   <tr>
     <th>followers</th>
-    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-    <th><%= users_followers.count %></th>
-    <% end %>
-  </tr>
-<!--マイページ以外のサイドバーにフォローするボタン表示記述-->
-  <tr>
-    <th></th>
-<!--マイページ以外のサイドバーにフォロー外すボタン表示記述-->
-    
+    <th><%= link_to  user.followers.count, user_followers_path(user.id) %></th>
   </tr>
 </table>
-
-<div class='row'>
-  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-    <i class="fas fa-user-cog"></i>
+<!--ログインユーザと表示対象ユーザが異なるか判定（自分自身時はフォローボタン表示しない）-->
+<% if current_user != user %>
+<!--ログインユーザが表示対象ユーザを既にフォローしているか判定（既に=フォロー外す・まだ=フォローするボタン表示）-->
+  <% if current_user.following?(user) %>
+<!--マイページ以外のサイドバーにフォロー外すボタン表示記述-->
+  <!--delete後（フォロー外すボタンクリック）→ relationships_contolloerのdestroyアクション(unfollow)に→ user.rb（def unfollow(user_id)）の流れで実行される-->
+    <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete, class: 'btn btn-info' %>
+  <% else %>
+<!--マイページ以外のサイドバーにフォローするボタン表示記述-->
+    <%= link_to "フォローする", user_relationships_path(user.id), method: :post, class: 'btn btn-success' %>
+    
+  <div class='row'>
+    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
+  </div>
   <% end %>
-</div>
+<% end %>
+

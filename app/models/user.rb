@@ -17,7 +17,22 @@ class User < ApplicationRecord
 # あるユーザがフォローしている人（フォロイー）一覧取得アソシエーション記述
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
 # sourceオプション=違った関連付け名でも関連元の名前を指定できる
-  has_many :following, through: :relationships , source: :followed
+  has_many :followings, through: :relationships , source: :followed
+# メソッド記述(フォローした時の処理)
+  def follow(user_id)
+    relationships.create(followed_id: user_id)
+  end
+# メソッド記述（フォロー外す時の処理）
+  def unfollow(user_id)
+# find_by(探す)
+    follower = relationships.find_by(followed_id: user_id)
+# フォロー外すボタンクリック後（削除処理）記述
+    follower.destroy
+  end
+# メソッド記述（フォローしているか判定）
+  def following?(user)
+    followings.include?(user)
+  end
 
 # belongs_to :books
   has_one_attached :profile_image
