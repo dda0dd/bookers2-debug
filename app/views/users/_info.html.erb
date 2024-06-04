@@ -1,3 +1,4 @@
+<!--サイドバー（User infoの箇所）記述場所-->
 <table class='table'>
   <tr><%= image_tag user.get_profile_image, size:'100x100' %></tr>
   <tr>
@@ -8,8 +9,29 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+<!--サイドバーにフォロー数表示記述-->
+  <tr>
+    <th>follows</th>
+<!--フォロー一覧画面へのリンク-->
+    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+    <th><%= users_followeds.count %></th>
+    <% end %>
+  </tr>
+<!--サイドバーにフォロワー数表示記述-->
+  <tr>
+    <th>followers</th>
+    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+    <th><%= users_followers.count %></th>
+    <% end %>
+  </tr>
+<!--マイページ以外のサイドバーにフォローするボタン表示記述-->
+  <tr>
+    <th></th>
+<!--マイページ以外のサイドバーにフォロー外すボタン表示記述-->
+    
+  </tr>
 </table>
-　
+
 <div class='row'>
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>

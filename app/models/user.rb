@@ -10,6 +10,15 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
 # Userデータ削除時にそのUserが投稿したコメントデータも一緒に削除（1:Nの関係）
   has_many :book_comments, dependent: :destroy
+
+# あるユーザをフォローしている人（フォロワー）の一覧取得アソシエーション記述
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followers, through: :reverse_of_relationships, source: :follower
+# あるユーザがフォローしている人（フォロイー）一覧取得アソシエーション記述
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+# sourceオプション=違った関連付け名でも関連元の名前を指定できる
+  has_many :following, through: :relationships , source: :followed
+
 # belongs_to :books
   has_one_attached :profile_image
 

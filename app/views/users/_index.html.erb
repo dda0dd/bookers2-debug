@@ -1,3 +1,4 @@
+<!--ユーザ一覧画面（Usersの箇所）記述場所-->
 <table class='table'>
   <thead>
     <tr>
@@ -11,6 +12,12 @@
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
+  <!--ユーザ一覧画面にフォロー数・フォロワー数表示ボタン記述-->
+        <td>フォロー数:<%= book.users_followeds.count %></td>
+        <td>フォロワー数:<%= book.users_followers.count %></td>
+  <!--フォローする・フォロー外すボタンリンク記述-->
+        <td><%= link_to book.user_followed %></td>
+        <td></td>
         <td><%= link_to 'Show', user %></td>
       </tr>
     <% end %>
