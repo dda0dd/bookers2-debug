@@ -18,25 +18,26 @@
         <td><%= link_to book.title,book %></td>
         <td><%= book.body %></td>
 
-  <!--投稿本に付けられたいいねがログインユーザ（自分）が含まれているか判定（favorited_by?メソッド）-->
+<!--投稿本に付けられたいいねがログインユーザ（自分）が含まれているか判定（favorited_by?メソッド）-->
       <% if book.favorited_by?(current_user) %>
         <td>
-  <!--リンク（aタグ）メソッドを条件によって変えている記述-->
+<!--リンク（aタグ）メソッドを条件によって変えている記述-->
     <!--class: "text-danger",（Bootstrapのcolor記述）追記でハートと数字を赤に-->
           <%= link_to book_favorite_path(book), class: "text-danger", method: :delete do %>
-  <!--FontAwesomeアイコン（中に色ハート）追記-->
+<!--FontAwesomeアイコン（中に色ハート）追記-->
             <i class="fa-solid fa-heart"></i><%= book.favorites.count %>
           <% end %>
         </td>
-  <!--含む/含まないで表示と機能を分ける-->
+<!--含む/含まないで表示と機能を分ける-->
       <% else %>
         <td>
           <%= link_to book_favorite_path(book), method: :post do %>
-  <!--FontAwesomeアイコン（枠色ハート）追記-->
+<!--FontAwesomeアイコン（枠色ハート）追記-->
             <i class="fa-regular fa-heart"></i><%= book.favorites.count %>
           <% end %>
         </td>
       <% end %>
+      
 <!--コメント機能記述-->
         <td>コメント数:<%= book.book_comments.count %></td>
       </tr>

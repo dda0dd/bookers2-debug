@@ -2,11 +2,11 @@
   <div class='row'>
     <div class='col-md-3'>
       <h2>User info</h2>
-  <!--引数が渡せていないので記述（, user: @user）-->
+<!--引数が渡せていないので記述（, user: @user）-->
       <%= render 'users/info', user: @user %>
       <h2 class="mt-3">New book</h2>
-      <!--_form.htmlのmodel:bookがbook, modelに渡す値（インスタンス変数）が@book_new-->
-        <!--books/追記-->
+<!--_form.htmlのmodel:bookがbook, modelに渡す値（インスタンス変数）が@book_new-->
+  <!--books/追記-->
       <%= render 'books/form', book: @book_new %>
     </div>
     <div class='col-md-8 offset-md-1'>
@@ -20,20 +20,20 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-  <!--本の投稿ユーザと現在ログインのユーザが一致していたら表示する記述（if~end）-->
+<!--本の投稿ユーザと現在ログインのユーザが一致していたら表示する記述（if~end）-->
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
           <% end %>
-  <!--投稿本に付けられたいいねがログインユーザ（自分）が含まれているか判定（favorited_by?メソッド）-->
+<!--投稿本に付けられたいいねがログインユーザ（自分）が含まれているか判定（favorited_by?メソッド）-->
         <% if @book.favorited_by?(current_user) %>
           <td>
-  <!--リンク（aタグ）メソッドを条件によって変えている記述-->
+<!--リンク（aタグ）メソッドを条件によって変えている記述-->
             <%= link_to book_favorite_path(@book), class:"text-danger", method: :delete do %>
               <i class="fa-solid fa-heart"></i><%= @book.favorites.count %>
             <% end %>
           </td>
-  <!--含む/含まないで表示と機能を分ける-->
+<!--含む/含まないで表示と機能を分ける-->
         <% else %>
           <td>
             <%= link_to book_favorite_path(@book), method: :post do %>
@@ -41,6 +41,7 @@
             <% end %>
           </td>
         <% end %>
+        
 <!--コメント機能記述-->
           <td>コメント数:<%= @book.book_comments.count %></td>
           <% @book.book_comments.each do |book_comment| %>
