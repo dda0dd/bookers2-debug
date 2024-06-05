@@ -10,7 +10,9 @@
       <%= f.select :range, options_for_select([['User'], ['Book']]) %>
 <!--検索手法定義（カンマ区切りで複数定義）選択した検索手法をsearchとしてアクションに送る-->
       <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"], ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-      <%= f.submit "検索", class: "btn btn-primary" %>
+<!--"btn"箇所=検索ボタン記述-->
+  <!--style: =Bootstrap内でのCSS記述（<div>や<link_to>内では上手く動作しないことも）カスタマイズツールある-->
+      <%= f.submit "検索", class: "btn btn-outline-secondary", style: "padding:0;" %>
     <% end %>
   </div>
 <% end %>

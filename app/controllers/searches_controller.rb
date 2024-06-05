@@ -6,6 +6,8 @@ class SearchesController < ApplicationController
   def search
 # 検索フォームから情報を受け取る params[:range](検索モデル)
     @range = params[:range]
+# searches/search.htmlの"<%= @word %>"を定義
+    @word = params[:word]
 # if文で検索モデルUser or Bookで条件分岐
     if @range == "User"
 # 検索フォームから情報を受け取る params[:search](検索方法),params[:word](検索ワード)

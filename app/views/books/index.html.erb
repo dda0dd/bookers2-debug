@@ -1,6 +1,7 @@
 <div class='container px-5 px-sm-0'>
   <div class='row'>
-    <div class='col-md-3'>
+<!--, style='margin-top: 30px;'追記でUser infoをBooksの高さに合わせる-->
+    <div class='col-md-3', style='margin-top: 30px;'>
       <h2>User info</h2>
 <!--本の投稿ができないエラーメッセージ-->
       <% if @book.errors.any? %>
@@ -16,9 +17,12 @@
       <%= render 'form', book: @book %>
     </div>
     <div class='col-md-8 offset-md-1'>
+<!--searches/_search部分テンプレート（検索窓・検索ボタン）呼び出し記述-->
+  <!--Bootstrapではfloatで並べ替えをできる-->
+      <%#= render 'searches/search' %>
       <h2>Books</h2>
-      <!--books/追記-->
-      <%= render 'books/index', books: @books%>
+<!--books/追記（投稿情報が必要なので, books: @books記述）-->
+      <%= render 'books/index', books: @books %>
     </div>
   </div>
 </div>

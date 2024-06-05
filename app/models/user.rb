@@ -46,18 +46,18 @@ class User < ApplicationRecord
 # perfect_match=完全一致（検索方法）送られてきたsearchで条件分岐
     if search == "perfect_match"
 # name=検索対象usersテーブル内カラム名
-      @user = User.where("name LIKE?", "#{word}")
+      @user = User.where("name LIKE ?", "#{word}")
 # forward_match=前方一致（検索方法）送られてきたsearchで条件分岐
     elsif search == "forward_match"
 # 完全一致以外の検索方法は #{word}前後か両方に % 追記で定義
-      @user = User.where("name LIKE?", "#{word}%")
+      @user = User.where("name LIKE ?", "#{word}%")
 # backward_match=後方一致（検索方法）送られてきたsearchで条件分岐
     elsif search == "backward_match"
 # whereメソッドでデータベースから該当データ取得、変数(@user)に代入
-      @user = User.where("name LIKE?", "%#{word}")
+      @user = User.where("name LIKE ?", "%#{word}")
 # partial_match=部分一致（検索方法）送られてきたsearchで条件分岐
     elsif search == "partial_match"
-      @user = User.where("name LIKE?", "%#{word}%")
+      @user = User.where("name LIKE ?", "%#{word}%")
     else
       @user = User.all
     end
