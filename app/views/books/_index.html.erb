@@ -12,34 +12,17 @@
     <% books.each do |book| %>
       <tr>
         <td><%= link_to(book.user) do %>
-          <%= image_tag book.user.get_profile_image, size:'50x50' %>
-          <% end %>
+            <%= image_tag book.user.get_profile_image, size:'50x50' %>
+        <% end %>
         </td>
         <td><%= link_to book.title,book %></td>
         <td><%= book.body %></td>
-
-<!--投稿本に付けられたいいねがログインユーザ（自分）が含まれているか判定（favorited_by?メソッド）-->
-      <% if book.favorited_by?(current_user) %>
-        <td>
-<!--リンク（aタグ）メソッドを条件によって変えている記述-->
-    <!--class: "text-danger",（Bootstrapのcolor記述）追記でハートと数字を赤に-->
-          <%= link_to book_favorite_path(book), class: "text-danger", method: :delete do %>
-<!--FontAwesomeアイコン（中に色ハート）追記-->
-            <i class="fa-solid fa-heart"></i><%= book.favorites.count %>
-          <% end %>
+<!--非同期通信する要素にID属性追加（その要素を独自に特定） JavaScriptコードはIDで特定要素にアクセスして操作-->
+  <!--book.id=各本特定の識別子（JavaScriptは特定本の要素を操作し、正確な処理を行う）      -->
+        <td id="favorite_btn_<%= book.id %>">
+<!--いいね機能（favorites/_btn）部分テンプレート呼び出し記述-->
+          <%= render 'favorites/btn', book: book %>
         </td>
-<!--含む/含まないで表示と機能を分ける-->
-      <% else %>
-        <td>
-          <%= link_to book_favorite_path(book), method: :post do %>
-<!--FontAwesomeアイコン（枠色ハート）追記-->
-            <i class="fa-regular fa-heart"></i><%= book.favorites.count %>
-          <% end %>
-        </td>
-      <% end %>
-      
-<!--コメント機能記述-->
-        <td>コメント数:<%= book.book_comments.count %></td>
       </tr>
     <% end %>
   </tbody>

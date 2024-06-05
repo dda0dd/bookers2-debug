@@ -6,7 +6,10 @@ class FavoritesController < ApplicationController
     favorite.save
 # いいね削除後は行う前にいた画面（books/index）に遷移記述
   # redirect_back使用時は直前ページに戻れなかった際のパス（root_path）が必要
-    redirect_back fallback_location: root_path
+
+# 非同期通信記述
+  # redirect_back fallback_location: root_pathを削除（redirect_toがない時Railsは自動で対応するJavaScriptファイルを探し。読み込む）
+
 # いいねを付けて保存後は本の詳細ページ(books/show)にリダイレクトされる設定
     # redirect_to book_path(book)
   end
@@ -17,7 +20,10 @@ class FavoritesController < ApplicationController
     favorite.destroy
 # いいね削除後は行う前にいた画面（books/index）に遷移記述
   # redirect_back使用時は直前ページに戻れなかった際のパス（root_path）が必要
-    redirect_back fallback_location: root_path
+
+# 非同期通信記述
+  # redirect_back fallback_location: root_pathを削除（redirect_toがない時Railsは自動で対応するJavaScriptファイルを探し。読み込む）
+
 # いいねを削除後は本の詳細ページ(books/show)にリダイレクトされる設定
     # redirect_to book_path(book)
   end

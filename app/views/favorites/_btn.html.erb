@@ -1,0 +1,20 @@
+<!--いいねボタンを部分テンプレート化（非同期通信用いて実装）-->
+
+
+<!--投稿本に付けられたいいねがログインユーザ（自分）が含まれているか判定（favorited_by?メソッド）-->
+      <% if book.favorited_by?(current_user) %>
+<!--リンク（aタグ）メソッドを条件によって変えている記述-->
+    <!--class: "text-danger",（Bootstrapのcolor記述）追記でハートと数字を赤に-->
+      <!--, remote: true（非同期通信行うオプション）追記-->
+          <%= link_to book_favorite_path(book), class: "text-danger", method: :delete, remote: true do %>
+<!--FontAwesomeアイコン（中に色ハート）追記-->
+            <i class="fa-solid fa-heart"></i><%= book.favorites.count %>
+          <% end %>
+<!--含む/含まないで表示と機能を分ける-->
+      <% else %>
+<!--, remote: true(非同期通信行うオプション)追記-->
+          <%= link_to book_favorite_path(book), method: :post, remote: true do %>
+<!--FontAwesomeアイコン（枠色ハート）追記-->
+            <i class="fa-regular fa-heart"></i><%= book.favorites.count %>
+          <% end %>
+      <% end %>

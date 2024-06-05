@@ -1,0 +1,8 @@
+<!--いいね機能を非同期通信用いて実装-->
+
+<!--favorites_controller(redirect_to)記述ない時Railsに読み込まれるJavaScriptファイル-->
+  <!--$("#favorite_btn_<%#= @book.id %>")でJavaScriptのセレクタ使用して特定要素選択-->
+    <!--@book.id(現在の本ID参照)セレクタ=idがfavorite_btn_実際の本IDに置き換えられる（という要素選択）-->
+      <!--.html(...)=選択要素のHTMLコンテンツ変更するためのコード-->
+        <!--"<%#= j(render 'favorites/btn', book: @book) %>"=部分テンプレートに@book渡し、'favorites/btn'（部分テンプレート）呼び出す-->
+$("#favorite_btn_<%= @book.id %>").html("<%= j(render 'favorites/btn', book: @book) %>");

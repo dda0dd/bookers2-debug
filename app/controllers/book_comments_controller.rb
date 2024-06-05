@@ -9,14 +9,22 @@ class BookCommentsController < ApplicationController
     comment.book_id = book.id
     comment.save
 # コメント後は行う前（books/show）に遷移記述
-    redirect_to book_path(book)
+    # redirect_to book_path(book)
+
+# 非同期通信記述
+  # redirect_backを削除（redirect_toがない時Railsは自動で対応するJavaScriptファイルを探し。読み込む）
+    # 非同期通信行う時はJavaScriptファイル（.js.erb）を使用でビュー更新
   end
 
 # コメント削除機能
   def destroy
     BookComment.find(params[:id]).destroy
 # コメント削除後は行う前（books/show）に遷移記述
-    redirect_to book_path(params[:book_id])
+    # redirect_to book_path(params[:book_id])
+
+# 非同期通信記述
+  # redirect_backを削除（redirect_toがない時Railsは自動で対応するJavaScriptファイルを探し。読み込む）
+    # 非同期通信行う時はJavaScriptファイル（.js.erb）を使用でビュー更新
   end
 
   private
