@@ -25,7 +25,7 @@
           <% if book_comment.user == current_user %>
 <!--(@book=book_idのこと) book_comment#destroyのパス（book_book_comment_path）-->
   <!--remote: true=非同期通信行うためのオプション（Railsはデフォルトで非同期通信を処理するライブラリが組み込まれているので実装時ページがリロードされず変更を反映できる）-->
-            <%= link_to 'Destroy', book_book_comment_path(book, book_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger float-end", remote: true %>
+            <%= link_to "Destroy", book_book_comment_path(book, book_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger float-end", remote: true %>
           <% end %>
         </td>
       </tr>

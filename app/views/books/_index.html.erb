@@ -23,6 +23,11 @@
 <!--いいね機能（favorites/_btn）部分テンプレート呼び出し記述-->
           <%= render 'favorites/btn', book: book %>
         </td>
+
+        <td id="comment_counter">
+<!--コメント数（book_comments/_counter）部分テンプレート呼び出し記述-->
+          <%= render "book_comments/counter", book: book %>
+        </td>
       </tr>
     <% end %>
   </tbody>

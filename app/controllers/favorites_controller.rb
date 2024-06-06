@@ -4,6 +4,8 @@ class FavoritesController < ApplicationController
     book = Book.find(params[:book_id])
     favorite = current_user.favorites.new(book_id: book.id)
     favorite.save
+# create.js.erbの<%= @book.id %>の@bookを定義
+    @book = book
 # いいね削除後は行う前にいた画面（books/index）に遷移記述
   # redirect_back使用時は直前ページに戻れなかった際のパス（root_path）が必要
 
@@ -18,6 +20,8 @@ class FavoritesController < ApplicationController
     book = Book.find(params[:book_id])
     favorite = current_user.favorites.find_by(book_id: book.id)
     favorite.destroy
+# destroy.js.erbの<%= @book.id %>の@bookを定義
+    @book = book
 # いいね削除後は行う前にいた画面（books/index）に遷移記述
   # redirect_back使用時は直前ページに戻れなかった際のパス（root_path）が必要
 
@@ -27,5 +31,4 @@ class FavoritesController < ApplicationController
 # いいねを削除後は本の詳細ページ(books/show)にリダイレクトされる設定
     # redirect_to book_path(book)
   end
-
 end
