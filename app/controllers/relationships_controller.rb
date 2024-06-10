@@ -5,6 +5,7 @@ class RelationshipsController < ApplicationController
   def create
 # フォロー作成記述
   current_user.follow(params[:user_id])
+# 同じ画面に戻る記述
   redirect_to request.referer
 # 保存記述
   # followes.save
@@ -20,13 +21,13 @@ class RelationshipsController < ApplicationController
 # フォロー外すボタンクリック後元画面に遷移記述
   # redirect_back fallback_location: root_path
   end
-  
+
 # フォロー一覧
   def followings
     user = User.find(params[:user_id])
     @users = user.followings
   end
-  
+
 # フォロワー一覧
   def followers
     user = User.find(params[:user_id])

@@ -5,6 +5,7 @@ class SearchesController < ApplicationController
 # seachアクション追加（用途:検索を行う）
   def search
 # 検索フォームから情報を受け取る params[:range](検索モデル)
+  # range=自分で定義した文字を記述している（他の文字でも良い）
     @range = params[:range]
 # searches/search.htmlの"<%= @word %>"を定義
     @word = params[:word]

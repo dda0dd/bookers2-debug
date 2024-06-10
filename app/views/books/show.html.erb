@@ -7,12 +7,15 @@
       <h2 class="mt-3">New book</h2>
 <!--_form.htmlのmodel:bookがbook, modelに渡す値（インスタンス変数）が@book_new-->
   <!--books/追記-->
+   <!--book:＝部分テンプレートのbookのことで@book_new＝book:を@book_newとして（変換して）呼び出すということ -->
       <%= render 'books/form', book: @book_new %>
     </div>
+<!--class名＝デザインの記述（Bootstrapなど）で使用-->
     <div class='col-md-8 offset-md-1'>
   		<h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
+<!--インスタンス変数＝contorollerとviewに記述時に使用,ローカル変数＝viewだけに記述時（each文など）に使用-->
           <td><%= link_to(@book.user) do %>
             <%= image_tag @book.user.get_profile_image, size:"80x80" %><br>
             <%= @book.user.name %>

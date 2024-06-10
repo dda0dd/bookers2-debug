@@ -9,6 +9,7 @@
     </tr>
   </thead>
   <tbody>
+<!--表作成（入力された感想などの複数表示）時に使用（送信ボタン無し）-->
     <% books.each do |book| %>
       <tr>
         <td><%= link_to(book.user) do %>
